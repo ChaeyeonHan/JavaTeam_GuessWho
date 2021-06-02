@@ -132,24 +132,35 @@ public class GuessWho extends JFrame {
        sidePanel.add(numGuesses); //add numGuesses panel to
        sidePanel.add(attribPane); 
       
-      /*
-       * GridBagLayout gridbag = new GridBagLayout(); sidePanel.setLayout(gridbag);
-       * 
-       * GridBagConstraints constraint = new GridBagConstraints();
-       * 
-       * constraint.fill=GridBagConstraints.BOTH; constraint.weightx = 1.0;
-       * constraint.weighty = 1.0; constraint.gridwidth = 1; constraint.gridheight =
-       * 2; gridbag.setConstraints(logoPane, constraint); sidePanel.add(logoPane);
-       * 
-       * constraint.gridwidth = GridBagConstraints.REMAINDER; constraint.gridheight =
-       * 1; constraint.weighty = 1; gridbag.setConstraints(scorePane, constraint);
-       * sidePanel.add(scorePane);
-       * 
-       * gridbag.setConstraints(numGuesses, constraint); sidePanel.add(numGuesses);
-       * 
-       * constraint.gridwidth = GridBagConstraints.REMAINDER;
-       * gridbag.setConstraints(attribPane, constraint); sidePanel.add(attribPane);
-       */
+       GridBagLayout gridbag = new GridBagLayout(); 
+		 sidePanel.setLayout(gridbag);
+		 
+		 GridBagConstraints constraint = new GridBagConstraints();
+		 
+		 constraint.fill=GridBagConstraints.BOTH; 
+		 constraint.weightx = 1.0;
+		 constraint.weighty = 1.0; 
+		 constraint.gridwidth = 1; 
+		 constraint.gridheight = 2; 
+		 gridbag.setConstraints(logoPane, constraint); 
+		 sidePanel.add(logoPane);
+
+		 constraint.gridwidth = GridBagConstraints.REMAINDER; 
+		 constraint.gridheight = 1; 
+		 constraint.weighty = 1; 
+		 gridbag.setConstraints(scorePane, constraint);
+		 sidePanel.add(scorePane);
+
+		 gridbag.setConstraints(numGuesses, constraint); 
+		 sidePanel.add(numGuesses);
+		 
+		 constraint.gridwidth = GridBagConstraints.REMAINDER;
+		 gridbag.setConstraints(attribPane, constraint); 
+		 sidePanel.add(attribPane);
+		 
+
+		sidePanel.setBackground(Color.white);
+		add(sidePanel, BorderLayout.EAST);
 
       sidePanel.setBackground(Color.white);
       add(sidePanel, BorderLayout.EAST); // add side panel to right side of frame
