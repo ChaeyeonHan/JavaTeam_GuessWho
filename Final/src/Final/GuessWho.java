@@ -11,26 +11,26 @@ public class GuessWho extends JFrame {
 
    private static final long serialVersionUID = 1L;
 
-   private Person secretPerson; // 鍮꾨��궗�엺 �꽑�젙
+   private Person secretPerson; 
 
-   private final int SIZE = 20; // array�쓽 �겕湲� �꽕�젙
-   private JButton[] pictures = new JButton[SIZE]; // button怨� 洹� �쐞 �궗吏꾨뱾 留뚮뱾湲� �쐞�븳 array
-   private JButton bt[] = new JButton[13]; // 吏덈Ц�뙋�슜 踰꾪듉
-   private Person[] people = new Person[SIZE]; // �궗�엺 媛앹껜 媛뽮퀬 �엳�뒗 array
-   private ImageIcon[] images = new ImageIcon[SIZE]; // �씠誘몄��뱾 媛뽮퀬 �엳�뒗 array
+   private final int SIZE = 20; 
+   private JButton[] pictures = new JButton[SIZE];
+   private JButton bt[] = new JButton[13];
+   private Person[] people = new Person[SIZE];
+   private ImageIcon[] images = new ImageIcon[SIZE]; 
 
-   private JPanel mainPanel = new JPanel(); // main panel
-   private JPanel sidePanel = new JPanel(); // side menu panel
-   private JPanel numGuesses; // 吏덈Ц�븳 媛��닔 �몴�떆�빐二쇰뒗 panel
-   private JPanel attribPane; // 由ъ뒪�듃�� �젣異� 踰꾪듉 ���떊�뿉 吏덈Ц�뙋 寃뚯떆
-   private JPanel logoPane; // 源��늿�넚�씠 �늻援ъ빞
-   private JPanel scorePane; //�젏�닔�뙋
+   private JPanel mainPanel = new JPanel(); 
+   private JPanel sidePanel = new JPanel(); 
+   private JPanel numGuesses; 
+   private JPanel attribPane; 
+   private JPanel logoPane; 
+   private JPanel scorePane; 
 
-   private JTextField guessesMade; // text field holding the number of guesses made
-   private int guesses; // holds number of guesses made
+   private JTextField guessesMade;
+   private int guesses; 
 
-   private ImageIcon cardBack = new ImageIcon("src//image//cardback.jpg"); // image for card back used when turning
-                                                         // cards over
+   private ImageIcon cardBack = new ImageIcon("src//image//cardback.jpg");
+                                                        
 
    // attributes to choose from
    private String[] attributes = { "glasses", "no glasses", "dye", "no dye", "bag", "no bag", "blush", "no blush",
@@ -47,7 +47,7 @@ public class GuessWho extends JFrame {
       buildSidePanel(); // build the side panel that contains attribute buttons (if pressed it
                      // automatically functions)
 
-      pack(); //// JFrame�쓽 �궡�슜臾쇱뿉 �븣留욊쾶 �쐢�룄�슦 �겕湲� 議곗젅�빐二쇰뒗 硫붿냼�뱶
+      pack(); 
       setVisible(true); // set form visible
       setSize(850, 650);
 
@@ -120,9 +120,9 @@ public class GuessWho extends JFrame {
     */
    public void buildSidePanel() {
 
-      buildImage(); // 源��늿�넚�씠 �늻援ъ빞
+      buildImage(); 
       buildNumGuesses(); // build panel to hold num of guesses made
-      buildAttribPane(); // �듅吏� 吏덈Ц�뙋 �엳�뒗 Panel�쓣 SidePanel�뿉 遺숈씠湲�
+      buildAttribPane(); 
 
       
        sidePanel.setLayout(new GridLayout(2,2,20,20)); //set panel layout
@@ -130,7 +130,7 @@ public class GuessWho extends JFrame {
       
        sidePanel.add(logoPane); 
        sidePanel.add(numGuesses); //add numGuesses panel to
-       sidePanel.add(attribPane); //�듅吏� 吏덈Ц�뙋 �엳�뒗 Panel
+       sidePanel.add(attribPane); 
       
       /*
        * GridBagLayout gridbag = new GridBagLayout(); sidePanel.setLayout(gridbag);
@@ -157,7 +157,7 @@ public class GuessWho extends JFrame {
    }
 
    /**
-    * 源��늿�넚�씠 �늻援ъ빞 濡쒓퀬 遺숈씠湲�
+    * 김눈송이 누구야 
     */
    public void buildImage() {
 
