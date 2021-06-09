@@ -24,7 +24,7 @@ class ImagePanel extends JPanel {
 	}
 }
 
-public class Story_Start_Inst{
+public class Story{
 	JFrame f1;
 	Frame f;
 	CardLayout card;
@@ -33,7 +33,7 @@ public class Story_Start_Inst{
 	Button startbt;
 	String find;
 
-	public Story_Start_Inst() {
+	public Story() {
 
 		f = new Frame("김눈송이 누구야");
 		card = new CardLayout();
@@ -140,7 +140,7 @@ public class Story_Start_Inst{
 	}
 	
 	public static void main(String[] args) {
-		new Story_Start_Inst();
+		new Story();
 	}
 		
 }
