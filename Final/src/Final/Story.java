@@ -24,7 +24,7 @@ class ImagePanel extends JPanel {
 	}
 }
 
-public class Story{
+public class Story_Start_Inst{
 	JFrame f1;
 	Frame f;
 	CardLayout card;
@@ -33,7 +33,7 @@ public class Story{
 	Button startbt;
 	String find;
 
-	public Story() {
+	public Story_Start_Inst() {
 
 		f = new Frame("김눈송이 누구야");
 		card = new CardLayout();
@@ -64,6 +64,7 @@ public class Story{
 		p6 = new ImagePanel(new ImageIcon("Inst.png").getImage());
 		
 		MouseHandler handler = new MouseHandler();
+		MouseHandler2 handler2 = new MouseHandler2();
 		
 		p0.add(startbt);
 		p0.add(l0); startbt.addMouseListener(handler);
@@ -72,7 +73,7 @@ public class Story{
 		p3.add(l3); p3.addMouseListener(handler);
 		p4.add(l4); p4.addMouseListener(handler);
 		p5.add(l5); p5.addMouseListener(handler);
-		p6.add(l6); p6.addMouseListener(handler);
+		p6.add(l6); p6.addMouseListener(handler2);
 	
 		f.add("Start", p0);
 		f.add("First", p1);
@@ -83,24 +84,10 @@ public class Story{
 		f.add("Inst", p6);
 		//card.show(f, "First");
 		f.pack();
-	
-		final Dialog info = new Dialog(f, "김눈송이 누구야", true);
-	    info.setSize(300,100);
-	    info.setLocation(300,400);
-	    info.setLayout(new FlowLayout());
-	   
-	    Label msg = new Label("도대체 김눈송이는 누굴까요? 찾아보러 갈까요?!", Label.CENTER);
-	    Button ok = new Button("OK");
-	    ok.addActionListener(new ActionListener(){
-	           public void actionPerformed(ActionEvent ev){
-	        	   new Game();
-	        	   f.dispose();
-	           }
-	    });         
-	    info.add(msg);
-	    info.add(ok);
-	    info.setVisible(true);
+		
 
+
+		
 	}
 
 
@@ -117,8 +104,43 @@ public class Story{
 	    public void mouseExited(MouseEvent e) {/*구현생략*/}
 	}
 	
+	public class MouseHandler2 extends MouseAdapter {
+		public void mouseClicked(MouseEvent e) {
+			f.dispose();
+			CreateDialog();
+		}
+		public void mousePressed(MouseEvent e) {/*구현생략*/}
+	    @Override  //마우스 이벤트  인터페이스 구현 
+	    public void mouseReleased(MouseEvent e) {/*구현생략*/}
+	    @Override  //마우스 이벤트  인터페이스 구현 
+	    public void mouseEntered(MouseEvent e) {/*구현생략*/}    
+	    @Override  //마우스 이벤트  인터페이스 구현 
+	    public void mouseExited(MouseEvent e) {/*구현생략*/}
+	}
+	
+	private void CreateDialog() {
+		//팝업창
+		final Dialog info = new Dialog(f1, "김눈송이 누구야", true);
+	    info.setSize(300,100);
+	    info.setLocation(300,400);
+	    info.setLayout(new FlowLayout());
+	   
+	    Label msg = new Label("도대체 김눈송이는 누굴까요? 찾아보러 갈까요?!", Label.CENTER);
+	    Button ok = new Button("OK");
+	    ok.addActionListener(new ActionListener(){
+	           public void actionPerformed(ActionEvent ev){
+	        	   new Game();
+	        	   f.dispose();
+	           }
+	    });         
+	    info.add(msg);
+	    info.add(ok);
+	    info.setVisible(true);
+		
+	}
+	
 	public static void main(String[] args) {
-		new Story();
+		new Story_Start_Inst();
 	}
 		
 }
