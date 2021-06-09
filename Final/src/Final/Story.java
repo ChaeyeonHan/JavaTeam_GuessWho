@@ -106,7 +106,6 @@ public class Story{
 	
 	public class MouseHandler2 extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
-			f.dispose();
 			CreateDialog();
 		}
 		public void mousePressed(MouseEvent e) {/*구현생략*/}
