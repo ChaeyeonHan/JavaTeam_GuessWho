@@ -11,33 +11,38 @@ public class GuessWho extends JFrame {
 
    private static final long serialVersionUID = 1L;
 
-   private Person secretPerson; 
-
-   private final int SIZE = 20; 
-   private JButton[] pictures = new JButton[SIZE];
-   private JButton bt[] = new JButton[13];
-   private Person[] people = new Person[SIZE];
-   private ImageIcon[] images = new ImageIcon[SIZE]; 
-
-   private JPanel mainPanel = new JPanel(); 
-   private JPanel sidePanel = new JPanel(); 
-   private JPanel numGuesses; 
-   private JPanel attribPane; 
-   private JPanel logoPane; 
-   private JPanel scorePane; 
-
-   private JTextField guessesMade;
-   private int guesses; 
-
-   private ImageIcon cardBack = new ImageIcon("src//image//cardback.jpg");
-                                                        
+   private Person secretPerson; // 비밀사람 선정
+   private final int SIZE = 20; // array의 크기 설정
+   private JButton[] pictures = new JButton[SIZE]; // button과 그 위 사진들 만들기 위한 array
+   private Person[] people = new Person[SIZE]; // 사람 객체 갖고 있는 array
+   private ImageIcon[] images = new ImageIcon[SIZE]; // 이미지들 갖고 있는 array
+   private JPanel mainPanel = new JPanel(); // main panel
+   private JPanel sidePanel = new JPanel(); // side menu panel
+   private JList attribBox;
+   private JList nameBox;
+   private JButton guessAttrib;
+   private JButton guessPerson; 
+   private JPanel numGuesses;
+   private JTextField guessesMade; // text field holding the number of guesses made
+   private int guesses; // holds number of guesses made
+   private ImageIcon cardBack = new ImageIcon("src//image//cardback.jpg"); // image for card back used when turning
+   private JPanel peopleList;
+   private JPanel attribList;
+   private JPanel sPersonPane;
+   private ImageIcon sPersonImage = new ImageIcon("scr//images//qmark.jpg");
+   //private JPanel logoPane = new JPanel(); // 김눈송이 누구야
+   private JPanel scorePane = new JPanel(); //점수판
+   private JButton sPersonButton; //to hold sPersonImage
+   
+   private JScrollPane spPeople;
+   private JScrollPane spAttrib;
 
    // attributes to choose from
-   private String[] attributes = { "glasses", "no glasses", "dye", "no dye", "bag", "no bag", "blush", "no blush",
-         "shoes", "no shoes", "ribbon", "no ribbon" };
+   private String[] attributes = { "glasses", "glasses X", "dye", "dye X", "blush", "blush X", "ribbon", "ribbon X",
+         "shoes", "shoes X", "bag", "bag X" };
    // names to choose from
    private String[] names = { "Adam", "Brenda", "Charlie", "David", "Denise", "Frank", "Giselle", "Heidi", "Kathy",
-         "Kevin", "Lucas", "Matthew", "Petra", "Raymond", "Sophia", "Steven", "Tamsin", "Yvette", "Sarah", "Wendy" };
+         "Kevin", "Lucas", "Matthew", "Petra", "Raymond", "Sarah", "Sophia", "Steven", "Tamsin", "Wendy", "Yvette"};
 
    // the constructor sets up the game
    public GuessWho() throws IOException {
@@ -47,9 +52,10 @@ public class GuessWho extends JFrame {
       buildSidePanel(); // build the side panel that contains attribute buttons (if pressed it
                      // automatically functions)
 
-      pack(); 
+      pack(); //// JFrame의 내용물에 알맞게 윈도우 크기 조절해주는 메소드
       setVisible(true); // set form visible
-      setSize(850, 650);
+      setExtendedState(JFrame.MAXIMIZED_BOTH);
+      setResizable(false);
 
       getSecretPerson(); // obtaining the secret person
 
@@ -70,23 +76,19 @@ public class GuessWho extends JFrame {
       } catch (IOException e) {
          JOptionPane.showMessageDialog(null, "File not found.");
       }
-
+      
       // build ArrayList with people's attributes
       for (int i = 0; i < SIZE; i++) {
          people[i] = new Person(inputFile.nextLine().toString(), // storing name
                inputFile.nextLine().toString(), // storing file path
-               inputFile.nextLine().toString(), // storing gender
-               inputFile.nextLine().toString(), // storing glasses status
-               inputFile.nextLine().toString(), // storing hair color
-               inputFile.nextLine().toString(), // storing eye color
-               inputFile.nextLine().toString(), // storing beard status
-               inputFile.nextLine().toString()); // storing mustache status
+               inputFile.nextLine().toString(), // storing glasses
+               inputFile.nextLine().toString(), // storing dye
+               inputFile.nextLine().toString(), // storing blush
+               inputFile.nextLine().toString(), // storing ribbon
+               inputFile.nextLine().toString(), // storing shoes
+               inputFile.nextLine().toString()); // storing bag
          inputFile.nextLine(); // skip past # separation character for next person to be stored
-         inputFile.nextLine(); // skip past # separation character for next person to be stored
-         inputFile.nextLine(); // skip past # separation character for next person to be stored
-         inputFile.nextLine(); // skip past # separation character for next person to be stored
-         inputFile.nextLine(); // skip past # separation character for next person to be stored
-         inputFile.nextLine(); // skip past # separation character for next person to be stored
+         
       }
 
       // close file
@@ -97,11 +99,11 @@ public class GuessWho extends JFrame {
     * buildMainPanel builds the main panel that stores the cards/pictures
     */
    public void buildMainPanel() {
-      setTitle("Guess Who"); // set title
+      setTitle("김눈송이 누구야"); // set title
       setLayout(new BorderLayout()); // set layout
 
-      mainPanel.setLayout(new GridLayout(5, 4, 20, 20)); // set panel layout
-
+      mainPanel.setLayout(new GridLayout(4,5,60,20)); // set panel layout
+      
       // assigning buttons
       for (int i = 0; i < SIZE; i++) {
          images[i] = new ImageIcon(people[i].getPicURL());
@@ -109,9 +111,9 @@ public class GuessWho extends JFrame {
          mainPanel.add(pictures[i]);
       }
 
-      mainPanel.setBackground(Color.WHITE);
+      mainPanel.setBackground(Color.white);
       add(mainPanel, BorderLayout.CENTER); // add main panel to center of frame
-
+      mainPanel.setBorder(BorderFactory.createEmptyBorder(50,50,50,100));
    }
 
    /**
@@ -119,48 +121,20 @@ public class GuessWho extends JFrame {
     * buttons
     */
    public void buildSidePanel() {
-
-      buildImage(); 
+     buildAttrib();
+     buildPerson();
+      //buildImage(); // 김눈송이 누구야
       buildNumGuesses(); // build panel to hold num of guesses made
-      buildAttribPane(); 
-
-      
-       sidePanel.setLayout(new GridLayout(2,2,20,20)); //set panel layout
+      //buildAttribPane(); // 특징 질문판 있는 Panel을 SidePanel에 붙이기
+       buildSecretPerson();
        
-      
-       sidePanel.add(logoPane); 
-       sidePanel.add(numGuesses); //add numGuesses panel to
-       sidePanel.add(attribPane); 
-      
-       GridBagLayout gridbag = new GridBagLayout(); 
-		 sidePanel.setLayout(gridbag);
-		 
-		 GridBagConstraints constraint = new GridBagConstraints();
-		 
-		 constraint.fill=GridBagConstraints.BOTH; 
-		 constraint.weightx = 1.0;
-		 constraint.weighty = 1.0; 
-		 constraint.gridwidth = 1; 
-		 constraint.gridheight = 2; 
-		 gridbag.setConstraints(logoPane, constraint); 
-		 sidePanel.add(logoPane);
-
-		 constraint.gridwidth = GridBagConstraints.REMAINDER; 
-		 constraint.gridheight = 1; 
-		 constraint.weighty = 1; 
-		 gridbag.setConstraints(scorePane, constraint);
-		 sidePanel.add(scorePane);
-
-		 gridbag.setConstraints(numGuesses, constraint); 
-		 sidePanel.add(numGuesses);
-		 
-		 constraint.gridwidth = GridBagConstraints.REMAINDER;
-		 gridbag.setConstraints(attribPane, constraint); 
-		 sidePanel.add(attribPane);
-		 
-
-		sidePanel.setBackground(Color.white);
-		add(sidePanel, BorderLayout.EAST);
+       sidePanel.setLayout(new GridLayout(2,2));
+       
+       sidePanel.add(peopleList);
+       sidePanel.add(sPersonPane);
+       sidePanel.add(attribList);
+       sidePanel.add(numGuesses);
+       
 
       sidePanel.setBackground(Color.white);
       add(sidePanel, BorderLayout.EAST); // add side panel to right side of frame
@@ -168,12 +142,12 @@ public class GuessWho extends JFrame {
    }
 
    /**
-    * 김눈송이 누구야 
+    * 김눈송이 누구야 로고 붙이기
     */
-   public void buildImage() {
+   /*public void buildImage() {
 
       logoPane = new JPanel();
-      ImageIcon nunlogo = new ImageIcon("src//image//nunlogo.jpg"); //김눈송이 누구야
+      ImageIcon nunlogo = new ImageIcon("src//image//nunlogo.jpg");
       Image image = nunlogo.getImage();
       Image newlogo = image.getScaledInstance(120, 90, java.awt.Image.SCALE_SMOOTH);
       nunlogo = new ImageIcon(newlogo);
@@ -185,35 +159,92 @@ public class GuessWho extends JFrame {
 
       sidePanel.add(logoPane);
 
+   }*/
+   
+   public void buildSecretPerson()
+   { 
+      sPersonPane = new JPanel();
+      
+      JLabel spLabel = new JLabel("Secret Person: ");
+      sPersonButton = new JButton(sPersonImage);
+      
+      sPersonPane.setLayout(new BoxLayout(sPersonPane, BoxLayout.PAGE_AXIS));
+      sPersonButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+      spLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+      
+      sPersonPane.add(spLabel);
+      sPersonPane.add(sPersonButton);
    }
-
    /**
     * buildNumGuesses builds a panel holding the number of guesses made
     */
+   
+   public void buildAttrib()
+   {
+      attribList = new JPanel();
+      
+      attribBox = new JList(attributes); //creating list box holding attributes to choose from
+      guessAttrib = new JButton("Guess Attribute");
+      guessAttrib.addActionListener(new guessAttribListener()); 
+      
+      //setting layout and centering components
+      attribList.setLayout(new BoxLayout(attribList, BoxLayout.PAGE_AXIS));
+      attribBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+      guessAttrib.setAlignmentX(Component.CENTER_ALIGNMENT);
+      
+      attribList.add(attribBox); //add list box to panel
+      attribList.add(guessAttrib); //add button to panel
+   }
+   
+   
+   /**
+    * buildPerson builds a panel holding the person list and person guess button
+    */
+   public void buildPerson()
+   {
+     
+      peopleList = new JPanel();
+      
+      
+      nameBox = new JList(names); //creating list box holding names to choose from
+      spPeople = new JScrollPane(nameBox);
+      //spPeople.setViewportView(nameBox);
+      nameBox.setLayoutOrientation(JList.VERTICAL);
+      
+      peopleList.add(spPeople);
+      
+      guessPerson = new JButton("Guess Person");
+      guessPerson.addActionListener(new guessPersonListener());
+      
+      //setting layout and centering components
+      peopleList.setLayout(new BorderLayout());
+      peopleList.add(nameBox,"Center");
+      peopleList.add(guessPerson,"South");
+
+   }
+   
    public void buildNumGuesses() {
       numGuesses = new JPanel(); // create panel
 
-      JLabel label = new JLabel("Score"); // create label
-      
+      JLabel label = new JLabel("Guesses Made: "); // create label
+
       guessesMade = new JTextField(4); // create text field
       guessesMade.setEditable(false); // set to uneditable
-      
+
       guessesMade.setText(Integer.toString(guesses));
-      JLabel label2 = new JLabel("/3");
 
       numGuesses.setBackground(Color.white);
       numGuesses.add(label); // add label to panel
-      numGuesses.add(label2);
       numGuesses.add(guessesMade); // add text field to panel
 
    }
 
-   public void buildAttribPane() {
+   /*public void buildAttribPane() {
 
       attribPane = new JPanel();
 
       for (int i = 0; i < 12; i++) {
-         bt[i] = new JButton();
+         bt[i] = new JButton(String.valueOf(i));
          attribPane.add(bt[i]);
          bt[i].addActionListener(new attribButtonListener());
       }
@@ -222,14 +253,14 @@ public class GuessWho extends JFrame {
       attribPane.setLayout(new GridLayout(3, 4)); // set panel layout
 
       sidePanel.add(attribPane);
-   }
+   } */
 
    /**
-    * getSecretPerson gets a random number between 0 and 17 and assigns the person
+    * getSecretPerson gets a random number between 0 and 19 and assigns the person
     * to a value stored at the corresponding subscript in the people array.
     */
    public void getSecretPerson() {
-      int random = (int) (Math.random() * (18)); // creating random number
+      int random = (int) (Math.random() * (20)); // creating random number
       secretPerson = people[random]; // assigning secret person based on random number value
    }
 
@@ -241,27 +272,28 @@ public class GuessWho extends JFrame {
    public class guessAttribListener implements ActionListener {
       public void actionPerformed(ActionEvent e) {
          // get selected attribute
-         String selection = (String) attribBox.getSelectedValue();
+          String selection = (String) attribBox.getSelectedValue();
+        
 
          if (selection == null) {
             JOptionPane.showMessageDialog(null, "No attribute is currently selected.");
          } else {
             // selection matches an attribute of the secret person
-            if (selection.matches(secretPerson.getGender()) || selection.matches(secretPerson.getEyeColor())
-                  || selection.matches(secretPerson.getHairColor())
-                  || selection.matches(secretPerson.getHasGlasses())
-                  || selection.matches(secretPerson.getHasBeard())
-                  || selection.matches(secretPerson.getHasMustache())) {
+            if (selection.matches(secretPerson.getGlasses()) || selection.matches(secretPerson.getDye())
+                  || selection.matches(secretPerson.getBlush())
+                  || selection.matches(secretPerson.getRibbon())
+                  || selection.matches(secretPerson.getShoes())
+                  || selection.matches(secretPerson.getBag())) {
                guesses++; // increment guesses
                guessesMade.setText(Integer.toString(guesses)); // display guesses in txtfield
 
                // finding card to turn over
                for (int i = 0; i < SIZE; i++) {
-                  if (!selection.matches(people[i].getGender()) && !selection.matches(people[i].getEyeColor())
-                        && !selection.matches(people[i].getHairColor())
-                        && !selection.matches(people[i].getHasGlasses())
-                        && !selection.matches(people[i].getHasBeard())
-                        && !selection.matches(people[i].getHasMustache())) {
+                  if (!selection.matches(people[i].getGlasses()) && !selection.matches(people[i].getDye())
+                        && !selection.matches(people[i].getBlush())
+                        && !selection.matches(people[i].getRibbon())
+                        && !selection.matches(people[i].getShoes())
+                        && !selection.matches(people[i].getBag())) {
                      pictures[i].setIcon(cardBack);
                   }
                }
@@ -272,11 +304,11 @@ public class GuessWho extends JFrame {
 
                // finding card to turn over
                for (int i = 0; i < SIZE; i++) {
-                  if (selection.matches(people[i].getGender()) || selection.matches(people[i].getEyeColor())
-                        || selection.matches(people[i].getHairColor())
-                        || selection.matches(people[i].getHasGlasses())
-                        || selection.matches(people[i].getHasBeard())
-                        || selection.matches(people[i].getHasMustache())) {
+                  if (selection.matches(people[i].getGlasses()) || selection.matches(people[i].getDye())
+                        || selection.matches(people[i].getBlush())
+                        || selection.matches(people[i].getRibbon())
+                        || selection.matches(people[i].getShoes())
+                        || selection.matches(people[i].getBag())) {
                      pictures[i].setIcon(cardBack);
                   }
                }
@@ -303,9 +335,9 @@ public class GuessWho extends JFrame {
                guesses++; // increment guesses
                guessesMade.setText(Integer.toString(guesses)); // display guesses in txtfield
 
-               // changing question mark card icon to show secret person
+               /*// changing question mark card icon to show secret person
                ImageIcon SP = new ImageIcon(secretPerson.getPicURL());
-               sPersonButton.setIcon(SP);
+               sPersonButton.setIcon(SP); */
 
                // show dialog box telling the player they won and asking if they want to play
                // again
@@ -342,13 +374,6 @@ public class GuessWho extends JFrame {
          }
       }
    }
-
-   public class attribButtonListener implements ActionListener {
-      public void actionPerformed(ActionEvent e) {
-
-         JButton btn = (JButton) e.getSource();
-
-      }
-   }
+   
 
 }
