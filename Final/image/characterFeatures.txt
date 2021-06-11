@@ -1,0 +1,180 @@
+Adam
+Adam.jpg
+glasses
+dye
+blush
+ribbon
+shoes X
+bag
+#
+Brenda
+Brenda.jpg
+glasses
+dye X
+blush 
+ribbon 
+shoes
+bag
+#
+Charlie
+Charlie.jpg
+glasses X
+dye 
+blush 
+ribbon 
+shoes 
+bag
+#
+David
+David.jpg
+glasses 
+dye 
+blush X
+ribbon 
+shoes X
+bag
+#
+Denise
+Denise.jpg
+glasses
+dye X
+blush 
+ribbon X
+shoes
+bag
+#
+Frank
+Frank.jpg
+glasses
+dye 
+blush X
+ribbon 
+shoes
+bag X
+#
+Giselle
+Giselle.jpg
+glasses X
+dye 
+blush 
+ribbon 
+shoes
+bag X
+#
+Heidi
+Heidi.jpg
+glasses
+dye X
+blush 
+ribbon 
+shoes
+bag
+#
+Kathy
+Kathy.jpg
+glasses
+dye 
+blush 
+ribbon 
+shoes
+bag
+#
+Kevin
+Kevin.jpg
+glasses
+dye 
+blush 
+ribbon X
+shoes
+bag
+#
+Lucas
+Lucas.jpg
+glasses
+dye 
+blush 
+ribbon 
+shoes 
+bag X
+#
+Matthew
+Matthew.jpg
+glasses
+dye 
+blush 
+ribbon 
+shoes X
+bag
+#
+Petra
+Petra.jpg
+glasses
+dye 
+blush X
+ribbon 
+shoes
+bag
+#
+Raymond
+Raymond.jpg
+glasses
+dye 
+blush 
+ribbon X
+shoes
+bag X
+#
+Sophia
+Sophia.jpg
+glasses X
+dye 
+blush 
+ribbon 
+shoes
+baG
+#
+Steven
+Steven.jpg
+glasses
+dye 
+blush X
+ribbon 
+shoes
+bag
+#
+Tamsin
+Tamsin.jpg
+glasses X
+dye 
+blush 
+ribbon X
+shoes
+bag
+#
+Yvette
+Yvette.jpg
+glasses
+dye 
+blush 
+ribbon 
+shoes X
+bag
+#
+Sarah
+Sarah.jpg
+glasses
+dye X
+blush 
+ribbon 
+shoes X
+bag
+#
+Wendy
+Wendy.jpg
+glasses
+dye 
+blush 
+ribbon X 
+shoes
+bag X
+<EOF>
